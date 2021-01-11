@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelarif <abelarif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 20:18:43 by abelarif          #+#    #+#             */
-/*   Updated: 2020/11/14 22:25:53 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 18:00:41 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # include <stdlib.h>
 
-# include "../LBFT/libft.h"
+# include "../libft_utils/libft.h"
 
 #define BUFFER_SIZE 1
 

@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:14:32 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 17:29:50 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 18:00:03 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <math.h>
-#include <limits.h>
 #include "./link.h"
 #include "./GNL/get_next_line.h"
-#include "./LBFT/libft.h"
+#include "./libft_utils/libft.h"
 
 #define PI 3.14159265359
 
