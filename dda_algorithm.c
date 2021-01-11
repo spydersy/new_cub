@@ -19,7 +19,7 @@ float		vabs(float i)
 
 int		calc_y(float h, float i)
 {
-	return ((int)((124 * (i - (g_data.resolution[1] - h) / 2)) / h));
+	return ((int)((124 * (i - (Y_RES - h) / 2)) / h));
 }
 
 int		calc_x(float x)
@@ -33,14 +33,14 @@ void	build_wall(float dist, int c, int color, float x, float y)
 	float					i;
 	char					*dst;
 
-	h = (64 * g_data.resolution[0]) / dist;
-	g_wall_pix[c] = (g_data.resolution[1] - h) / 2;
+	h = (64 * X_RES) / dist;
+	g_wall_pix[c] = (Y_RES - h) / 2;
 	i = -1;
-	while (++i < (float)g_data.resolution[1])
+	while (++i < (float)Y_RES)
 	{
-		if (i <= (float)((float)(g_data.resolution[1] - h) / 2))
+		if (i <= (float)((float)(Y_RES - h) / 2))
 			my_mlx_pixel_put(&img, c, i, g_data.ce_color[2] + g_data.ce_color[1] * 256 + g_data.ce_color[0] * 65536);
-		else if ((((float)g_data.resolution[1] - h) / 2) < i && i < (((float)g_data.resolution[1] + h) / 2))
+		else if ((((float)Y_RES - h) / 2) < i && i < (((float)Y_RES + h) / 2))
 		{
 			if (color == 0x8934eb)
 			{

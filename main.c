@@ -34,6 +34,7 @@ void	ft_error(char *str)
 	}
 	exit(-1);
 }
+
 int		check_args_errors(int argc, char *argv[])
 {
 	int		fd;
@@ -54,30 +55,25 @@ int		check_args_errors(int argc, char *argv[])
 	return (fd);
 }
 
-void	print_data()
-{
-	printf("RESOLUTION : (%d, %d)\n", g_data.resolution[0], g_data.resolution[1]);
-	printf("NO TEXTURE : >>%s<<\n", g_data.no_texture);
-	printf("SO TEXTURE : >>%s<<\n", g_data.so_texture);
-	printf("WE TEXTURE : >>%s<<\n", g_data.we_texture);
-	printf("NO TEXTURE : >>%s<<\n", g_data.sp_texture);
-	printf("FL COLORS  : (%d, %d, %d)\n", g_data.fl_color[0], g_data.fl_color[1], g_data.fl_color[2]);
-	printf("CE COLORS  : (%d, %d, %d)\n", g_data.ce_color[0], g_data.ce_color[1], g_data.ce_color[2]);
-	printf("EA TEXTURE : >>%s<<\n", g_data.ea_texture);
-
-}
-
 int		main(int argc, char *argv[])
 {
 	int		fd;
+	int		i;
 
 	g_data.save = 0;
 	fd = check_args_errors(argc, argv);
 	g_mlx.mlx = mlx_init();
 	ft_data(fd);
-	g_data.resolution[0] = ((g_data.resolution[0] >= 5120) ? (5120 / 2) : (g_data.resolution[0]));
-	g_data.resolution[1] = ((g_data.resolution[1] >= 2880) ? (2880 / 2) : (g_data.resolution[1]));
-	print_data();
+	X_RES = ((X_RES >= 2560) ? (2560) : (X_RES));
+	Y_RES = ((Y_RES >= 1440) ? (1440) : (Y_RES));
+	i = -1;
+	while (++i < 3)
+		if (!(0 <= g_data.ce_color[i] && g_data.ce_color[i] <= 255))
+			ft_error("RGB VALUE");
+	i = -1;
+	while (++i < 3)
+		if (!(0 <= g_data.ce_color[i] && g_data.ce_color[i] <= 255))
+			ft_error("RGB VALUE");
 	init_text();
 	ft_map(fd);
 	return (0);

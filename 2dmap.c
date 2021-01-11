@@ -112,9 +112,9 @@ void	ft_move_h(int direction)
 
 void	malloc_sprite(void)
 {
-	if (g_sprite != NULL)
-		free(g_sprite);
-	if (!(g_sprite = malloc(sizeof(t_sprite) * 100)))
+	if (g_sp != NULL)
+		free(g_sp);
+	if (!(g_sp = malloc(sizeof(t_sprite) * 100)))
 		ft_error("malloc\n");
 	g_nb_sprite = 0;
 }
@@ -144,10 +144,10 @@ int		ft_cast_rays()
 	float	teta;
 	
 	step = -1;
-	teta = PI / (3 * g_data.resolution[0]);
+	teta = PI / (3 * X_RES);
 	g_player.current = g_player.rotation;
 	g_player.rotation = g_player.rotation - PI / 6;
-	while (++step < g_data.resolution[0])
+	while (++step < X_RES)
 	{
 		dda(g_player.x,
 		g_player.y,
@@ -205,13 +205,13 @@ void	init_text(void)
 void	cub3d(int nb_line, int max_len)
 {
 
-	if (!(g_wall_distances = malloc(sizeof(float) * g_data.resolution[0])))
+	if (!(g_wall_distances = malloc(sizeof(float) * X_RES)))
 		ft_error("malloc");
-	if (!(g_wall_pix = malloc(sizeof(float) * g_data.resolution[0])))
+	if (!(g_wall_pix = malloc(sizeof(float) * X_RES)))
 		ft_error("malloc");
-	g_mlx.win = mlx_new_window(g_mlx.mlx, g_data.resolution[0], g_data.resolution[1], "CUB3D");
+	g_mlx.win = mlx_new_window(g_mlx.mlx, X_RES, Y_RES, "CUB3D");
 	draw_map(nb_line, max_len);
-	img.img = mlx_new_image(g_mlx.mlx, g_data.resolution[0], g_data.resolution[1]);
+	img.img = mlx_new_image(g_mlx.mlx, X_RES, Y_RES);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	ft_cast_rays();
 	mlx_key_hook(g_mlx.win, ft_key, (void*)0);

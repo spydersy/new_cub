@@ -14,16 +14,16 @@
 
 void	add_sprite(float x, float y)
 {
-	g_sprite[g_nb_sprite].x_map = x / 64;
-	g_sprite[g_nb_sprite].y_map = y / 64;
-	g_sprite[g_nb_sprite].index = -1;
-	g_sprite[g_nb_sprite].x = g_sprite[g_nb_sprite].x_map * 64 + 32;
-	g_sprite[g_nb_sprite].y = g_sprite[g_nb_sprite].y_map * 64 + 32;
+	g_sp[g_nb_sprite].x_map = x / 64;
+	g_sp[g_nb_sprite].y_map = y / 64;
+	g_sp[g_nb_sprite].index = -1;
+	g_sp[g_nb_sprite].x = g_sp[g_nb_sprite].x_map * 64 + 32;
+	g_sp[g_nb_sprite].y = g_sp[g_nb_sprite].y_map * 64 + 32;
 
-	g_sprite[g_nb_sprite].distance = distance(g_player.x, g_player.y,
-	g_sprite[g_nb_sprite].x , g_sprite[g_nb_sprite].y);
+	g_sp[g_nb_sprite].distance = distance(g_player.x, g_player.y,
+	g_sp[g_nb_sprite].x , g_sp[g_nb_sprite].y);
 	
-	g_sprite[g_nb_sprite].distance = g_sprite[g_nb_sprite].distance
+	g_sp[g_nb_sprite].distance = g_sp[g_nb_sprite].distance
 	* cos(vabs(g_player.current - g_player.rotation));
 	
 	g_nb_sprite++;
@@ -47,7 +47,7 @@ int		check_sprite(float x, float y)
 	}
 	while (++i < g_nb_sprite)
 	{
-		if (x_position ==  g_sprite[i].x_map && y_position == g_sprite[i].y_map)
+		if (x_position ==  g_sp[i].x_map && y_position == g_sp[i].y_map)
 		{
 			return (0);
 		}

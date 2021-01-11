@@ -45,6 +45,9 @@
 #define E_KEY	53
 #include <mlx.h>
 
+#define X_RES	g_data.resolution[0]
+#define Y_RES	g_data.resolution[1]
+
 typedef struct	s_data
 {
 	int			resolution[2];
@@ -121,7 +124,7 @@ t_img			g_txt3;
 t_img			g_txt4;
 t_img			g_txts;
 
-t_sprite		*g_sprite;
+t_sprite		*g_sp;
 
 int				nb_line;
 int				max_len;

@@ -21,8 +21,8 @@ int		get_resolution(char **content)
 	if (all_digit(content[1]) && all_digit(content[2]) && g_data.nb[0] == 0)
 	{
 		g_data.nb[0] = 1;
-		g_data.resolution[0] = ft_atoi(content[1]);
-		g_data.resolution[1] = ft_atoi(content[2]);
+		X_RES = ft_atoi(content[1]);
+		Y_RES = ft_atoi(content[2]);
 		return (1);
 	}
 	else if (g_data.nb[0] == 1)
@@ -67,6 +67,10 @@ int		get_rgb(int index, const char *str)
 	else
 		get_fl(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
 	g_data.nb[index] = 1;
+	nb = -1;
+	while (++nb <= 3)
+		free(rgb[nb]);
+	free(rgb);
 	return (1);
 }
 

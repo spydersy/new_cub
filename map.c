@@ -45,7 +45,7 @@ void		get_player(char orientation, int x, int y)
 	g_player.x = x;
 	g_player.y = y;
 	if (orientation == 'N')
-		g_player.rotation = - (PI / 2);
+		g_player.rotation = -(PI / 2);
 	else if (orientation == 'S')
 		g_player.rotation = PI / 2;
 	else if (orientation == 'E')
@@ -104,6 +104,7 @@ int			skip_void(int fd)
 			r = ft_strlen(line);
 			return (r);
 		}
+		free(line);
 	}
 	if (r == 0)
 		ft_error("No Map\n");
@@ -203,7 +204,7 @@ void		ft_map(int fd)
 {
 	int				r;
 	char			*line;
-	
+
 	r = 1;
 	nb_line = 0;
 	max_len = skip_void(fd);

@@ -22,11 +22,11 @@ void	ft_init(void)
 	g_data.nb[5] = 0;
 	g_data.nb[6] = 0;
 	g_data.nb[7] = 0;
-	g_data.resolution[0] = -1;
-	g_data.resolution[1] = -1;
+	X_RES = -1;
+	Y_RES = -1;
 	g_player.x = -1;
 	g_player.y = -1;
-	g_player.rotation = 0;	
+	g_player.rotation = 0;
 	g_txt1.resolution[0] = 128;
 	g_txt1.resolution[1] = 124;
 	g_txts.resolution[0] = 64;
@@ -84,10 +84,7 @@ int		manip_line(const char *line)
 	if ((content = ft_split(line, ' ')) == NULL)
 		ft_error("Split\n");
 	if (!ft_isalpha(line[0]))
-	{
-		printf("%s\n", line);
-		ft_error("FIRST CHAR\n");   
-	}
+		ft_error("FIRST CHAR\n");
 	while (content[nb])
 		nb++;
 	if (nb == 3)
