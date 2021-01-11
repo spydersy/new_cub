@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   appah.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/11 17:41:43 by abelarif          #+#    #+#             */
+/*   Updated: 2021/01/11 17:42:43 by abelarif         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 float	deg(float x)
 {
-	return ((180 / M_PI) * x);
+	return ((180 / PI) * x);
 }
 
 void	draw_sprite(int id)
@@ -14,22 +26,22 @@ void	draw_sprite(int id)
 	float	size;
 
 	i = -1;
-	size = g_sp[id].size;
-	l9alwa = (int*)g_txts.addr;
+	size = SP[id].size;
+	l9alwa = (int*)TXTS.addr;
 	while (++i < size - 1 && (j = -1))
 	{
-		if (g_sp[id].xof + i <= 0 || g_sp[id].xof + i > X_RES - 1)
+		if (SP[id].xof + i <= 0 || SP[id].xof + i > X_RES - 1)
 			continue ;
-		if (g_wall_distances[(int)(g_sp[id].xof + i)] <= g_sp[id].distance)
+		if (g_wall_distances[(int)(SP[id].xof + i)] <= SP[id].distance)
 			continue ;
 		while (++j < size - 1)
 		{
-			if (g_sp[id].yof + j <= 0 || g_sp[id].yof + j > Y_RES - 1)
+			if (SP[id].yof + j <= 0 || SP[id].yof + j > Y_RES - 1)
 				continue ;
 			c = l9alwa[(int)((64) *
 					(64 * j / (int)size) + (64 * i / (int)size))];
 			if (c != l9alwa[0])
-				my_mlx_pixel_put(&img, i + g_sp[id].xof, j + g_sp[id].yof, c);
+				my_mlx_pixel_put(&img, i + SP[id].xof, j + SP[id].yof, c);
 		}
 	}
 }
@@ -46,11 +58,11 @@ void	to_sort(void)
 		j = i;
 		while (j < g_nb_sprite - 1)
 		{
-			if (g_sp[j].distance < g_sp[j + 1].distance)
+			if (SP[j].distance < SP[j + 1].distance)
 			{
-				tmp = g_sp[j];
-				g_sp[j] = g_sp[j + 1];
-				g_sp[j + 1] = tmp;
+				tmp = SP[j];
+				SP[j] = SP[j + 1];
+				SP[j + 1] = tmp;
 			}
 			j++;
 		}
@@ -69,15 +81,15 @@ void	to_sprite(void)
 	angle = 0;
 	while (++k < g_nb_sprite)
 	{
-		angle = atan2f(g_sp[k].y - g_player.y, g_sp[k].x - g_player.x);
-		while (angle - g_player.rotation > M_PI)
+		angle = atan2f(SP[k].y - Y_PLY, SP[k].x - X_PLY);
+		while (angle - A_PLY > M_PI)
 			angle -= 2 * M_PI;
-		while (angle - g_player.rotation < -M_PI)
+		while (angle - A_PLY < -M_PI)
 			angle += 2 * M_PI;
-		g_sp[k].size = (float)((X_RES / g_sp[k].distance) * 64);
-		g_sp[k].yof = (float)(Y_RES / 2 - g_sp[k].size / 2);
-		g_sp[k].xof = (float)(((deg(angle) - deg(g_player.rotation)) * X_RES)
-		/ 64 + ((X_RES / 2) - (int)g_sp[k].size / 2));
+		SP[k].size = (float)((X_RES / SP[k].distance) * 64);
+		SP[k].yof = (float)(Y_RES / 2 - SP[k].size / 2);
+		SP[k].xof = (float)(((deg(angle) - deg(A_PLY)) * X_RES)
+		/ 64 + ((X_RES / 2) - (int)SP[k].size / 2));
 		draw_sprite(k);
 	}
 }

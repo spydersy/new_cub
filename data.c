@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelarif <abelarif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 12:48:01 by abelarif          #+#    #+#             */
-/*   Updated: 2020/11/16 00:42:07 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 16:59:39 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ int		get_texture(char **content)
 	return (get_path(index, content[1]));
 }
 
+void	check_comma(char *line)
+{
+	int		i;
+	int		nb;
+
+	nb = 0;
+	i = 0;
+	if (line[0] == 'F' || line[0] == 'C')
+	{
+		while (line[++i])
+			if (line[i] == ',')
+				nb++;
+		if (nb != 2)
+			ft_error("nb comma\n");
+	}
+}
+
 void	ft_data(int fd)
 {
 	static int		nb = 0;
@@ -50,6 +67,7 @@ void	ft_data(int fd)
 			ft_error("GNL\n");
 		if (skip_line(line) == 0)
 		{
+			check_comma(line);
 			if (manip_line(line) == 1)
 				nb++;
 		}

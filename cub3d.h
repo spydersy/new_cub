@@ -6,47 +6,58 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:14:32 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/09 16:13:19 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:29:50 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef CUB3D_H
-#	define CUB3D_H
+#ifndef CUB3D_H
+#define CUB3D_H
 
-#	include <unistd.h>
-#	include <string.h>
-#	include <stdlib.h>
-#	include <errno.h>
-#	include <fcntl.h>
-#	include <stdio.h>
-#	include <math.h>
-#	include "./link.h"
-#	include "./GNL/get_next_line.h"
-#	include "./LBFT/libft.h"
-
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <math.h>
+#include <limits.h>
+#include "./link.h"
+#include "./GNL/get_next_line.h"
+#include "./LBFT/libft.h"
 
 #define PI 3.14159265359
 
-// #define A_KEY	97
-// #define D_KEY	100
-// #define W_KEY	119
-// #define S_KEY	115
-// #define L_KEY	65361
-// #define R_KEY	65363
-// #define E_KEY	65307
-// #include "../mlx.h"
+#define A_KEY	97
+#define D_KEY	100
+#define W_KEY	119
+#define S_KEY	115
+#define L_KEY	65361
+#define R_KEY	65363
+#define E_KEY	65307
+#include "../mlx.h"
 
-#define A_KEY	0
-#define D_KEY	2
-#define W_KEY	13
-#define S_KEY	1
-#define L_KEY	123
-#define R_KEY	124
-#define E_KEY	53
-#include <mlx.h>
+// #define A_KEY	0
+// #define D_KEY	2
+// #define W_KEY	13
+// #define S_KEY	1
+// #define L_KEY	123
+// #define R_KEY	124
+// #define E_KEY	53
+// #include <MLXh>
 
-#define X_RES	g_data.resolution[0]
-#define Y_RES	g_data.resolution[1]
+#define X_RES	DATA.resolution[0]
+#define Y_RES	DATA.resolution[1]
+#define X_PLY	g_player.x
+#define Y_PLY	g_player.y
+#define A_PLY	g_player.angle
+#define SP		g_sprite
+#define DATA	g_data
+
+#define TXTS		g_txts
+#define TXT1		g_txt1
+#define TXT2		g_txt2
+#define TXT3		g_txt3
+#define TXT4		g_txt4
 
 typedef struct	s_data
 {
@@ -67,7 +78,7 @@ typedef	struct	s_player
 	float			x;
 	float			y;
 	float			current;
-	float			rotation;
+	float			angle;
 	int				col;
 }				t_player;
 
@@ -111,7 +122,7 @@ typedef struct	s_sprite
 
 
 
-char			**g_map;
+char			**MAP;
 t_player		g_player;
 t_data			g_data;
 t_liste			*g_liste;
@@ -124,7 +135,7 @@ t_img			g_txt3;
 t_img			g_txt4;
 t_img			g_txts;
 
-t_sprite		*g_sp;
+t_sprite		*g_sprite;
 
 int				nb_line;
 int				max_len;

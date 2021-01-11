@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:52:39 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/09 17:18:21 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:29:25 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	draw_map(int y_max, int x_max)
 		x = -1;
 		while (++x < x_max)
 		{
-			if (ft_isalpha(g_map[y][x]))
+			if (ft_isalpha(MAP[y][x]))
 			{
-				g_player.x = x * 64 + 32;
-				g_player.y = y * 64 + 32;
+				X_PLY = x * 64 + 32;
+				Y_PLY = y * 64 + 32;
 			}
 		}
 	}
@@ -78,43 +78,43 @@ void	get_new_position(float x0, float y0, float x1, float y1, int nb_steps)
 	{
 		if (!y || !x || !((int)x % 64) || !((int)y % 64) || !(((int)x + 1) % 64) || !(((int)y + 1) % 64))
 		{
-			if (g_map[(int)y / 64][(int)x / 64] == '1' || g_map[(int)y / 64][(int)x / 64] == ' ' || g_map[(int)y / 64][(int)x / 64] == '2')
+			if (MAP[(int)y / 64][(int)x / 64] == '1' || MAP[(int)y / 64][(int)x / 64] == ' ' || MAP[(int)y / 64][(int)x / 64] == '2')
 			{
-				g_player.x = x - 10 * xi;
-				g_player.y = y - 10 * yi;
+				X_PLY = x - 10 * xi;
+				Y_PLY = y - 10 * yi;
 				break;
 			}
 		}
 		x += xi;
 		y += yi;
 		i++;
-		g_player.x = x - xi;
-		g_player.y = y - yi;
+		X_PLY = x - xi;
+		Y_PLY = y - yi;
 	}
 }
 
 void	ft_move_v(int direction)
 {
 	get_new_position(
-	g_player.x,
-	g_player.y,
-	(g_player.x + (direction * -1) * cosf(g_player.rotation) * 100000000),
-	(g_player.y + (direction * -1) * sinf(g_player.rotation) * 100000000), 40);
+	X_PLY,
+	Y_PLY,
+	(X_PLY + (direction * -1) * cosf(A_PLY) * 100000000),
+	(Y_PLY + (direction * -1) * sinf(A_PLY) * 100000000), 40);
 }
 
 void	ft_move_h(int direction)
 {
-	get_new_position(g_player.x,
-		g_player.y,
-		(g_player.x + (direction) * cosf(g_player.rotation + PI / 2) * 100000000),
-		(g_player.y + (direction) * sinf(g_player.rotation + PI / 2) * 100000000), 18);
+	get_new_position(X_PLY,
+		Y_PLY,
+		(X_PLY + (direction) * cosf(A_PLY + PI / 2) * 100000000),
+		(Y_PLY + (direction) * sinf(A_PLY + PI / 2) * 100000000), 18);
 }
 
 void	malloc_sprite(void)
 {
-	if (g_sp != NULL)
-		free(g_sp);
-	if (!(g_sp = malloc(sizeof(t_sprite) * 100)))
+	if (SP != NULL)
+		free(SP);
+	if (!(SP = malloc(sizeof(t_sprite) * 10000)))
 		ft_error("malloc\n");
 	g_nb_sprite = 0;
 }
@@ -123,9 +123,9 @@ void	ft_new_frame(int key)
 {
 	mlx_clear_window(g_mlx.mlx, g_mlx.win);
 	if (key == L_KEY)
-		g_player.rotation = g_player.rotation  - PI / 40;
+		A_PLY = A_PLY  - PI / 40;
 	if (key == R_KEY)
-		g_player.rotation = g_player.rotation  + PI / 40;
+		A_PLY = A_PLY  + PI / 40;
 	if (key == W_KEY)
 		ft_move_v(-1);
 	if (key == S_KEY)
@@ -135,7 +135,7 @@ void	ft_new_frame(int key)
 	if (key == D_KEY)
 		ft_move_h(1);	
 	if (key == L_KEY || key == R_KEY)
-		g_player.rotation = normalize(g_player.rotation);
+		A_PLY = normalize(A_PLY);
 }
 
 int		ft_cast_rays()
@@ -145,17 +145,17 @@ int		ft_cast_rays()
 	
 	step = -1;
 	teta = PI / (3 * X_RES);
-	g_player.current = g_player.rotation;
-	g_player.rotation = g_player.rotation - PI / 6;
+	g_player.current = A_PLY;
+	A_PLY = A_PLY - PI / 6;
 	while (++step < X_RES)
 	{
-		dda(g_player.x,
-		g_player.y,
-		(int)(g_player.x + cosf(g_player.rotation) * 100000000),
-		(int)(g_player.y + sinf(g_player.rotation) * 100000000), 0XFF0000, step);
-		g_player.rotation += teta;
+		dda(X_PLY,
+		Y_PLY,
+		(int)(X_PLY + cosf(A_PLY) * 100000000),
+		(int)(Y_PLY + sinf(A_PLY) * 100000000), 0XFF0000, step);
+		A_PLY += teta;
 	}
-	g_player.rotation = g_player.current;
+	A_PLY = g_player.current;
 	to_sprite();
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, img.img, 0, 0);
 	return (0);
@@ -171,7 +171,7 @@ int		ft_key(int key,  void *args)
 	|| key == W_KEY || key == S_KEY || args)
 	{
 		ft_new_frame(key);
-		g_player.rotation = normalize(g_player.rotation);
+		A_PLY = normalize(A_PLY);
 	}
 	malloc_sprite();
 	return (ft_cast_rays());
@@ -188,18 +188,18 @@ int		do_nothing(int key, void *args)
 
 void	init_text(void)
 {
-	g_txt4.img = mlx_xpm_file_to_image(g_mlx.mlx, g_data.no_texture, &g_txt1.resolution[0], &g_txt1.resolution[1]);
-	g_txt3.img = mlx_xpm_file_to_image(g_mlx.mlx, g_data.so_texture, &g_txt1.resolution[0], &g_txt1.resolution[1]);
-	g_txt2.img = mlx_xpm_file_to_image(g_mlx.mlx, g_data.we_texture, &g_txt1.resolution[0], &g_txt1.resolution[1]);
-	g_txt1.img = mlx_xpm_file_to_image(g_mlx.mlx, g_data.ea_texture, &g_txt1.resolution[0], &g_txt1.resolution[1]);
-	g_txts.img = mlx_xpm_file_to_image(g_mlx.mlx, g_data.sp_texture, &g_txts.resolution[0], &g_txts.resolution[1]);
-	if (!g_txt1.img || !g_txt2.img || !g_txt3.img || !g_txt4.img || !g_txts.img)
+	TXT4.img = mlx_xpm_file_to_image(g_mlx.mlx, DATA.no_texture, &TXT1.resolution[0], &TXT1.resolution[1]);
+	TXT3.img = mlx_xpm_file_to_image(g_mlx.mlx, DATA.so_texture, &TXT1.resolution[0], &TXT1.resolution[1]);
+	TXT2.img = mlx_xpm_file_to_image(g_mlx.mlx, DATA.we_texture, &TXT1.resolution[0], &TXT1.resolution[1]);
+	TXT1.img = mlx_xpm_file_to_image(g_mlx.mlx, DATA.ea_texture, &TXT1.resolution[0], &TXT1.resolution[1]);
+	TXTS.img = mlx_xpm_file_to_image(g_mlx.mlx, DATA.sp_texture, &TXTS.resolution[0], &TXTS.resolution[1]);
+	if (!TXT1.img || !TXT2.img || !TXT3.img || !TXT4.img || !TXTS.img)
 		ft_error("TEXTURE\n");
-	g_txt1.addr = mlx_get_data_addr(g_txt1.img, &g_txt1.bits_per_pixel, &g_txt1.line_length, &g_txt1.endian);
-	g_txt2.addr = mlx_get_data_addr(g_txt2.img, &g_txt2.bits_per_pixel, &g_txt2.line_length, &g_txt2.endian);
-	g_txt3.addr = mlx_get_data_addr(g_txt3.img, &g_txt3.bits_per_pixel, &g_txt3.line_length, &g_txt3.endian);
-	g_txt4.addr = mlx_get_data_addr(g_txt4.img, &g_txt4.bits_per_pixel, &g_txt4.line_length, &g_txt4.endian);
-	g_txts.addr = mlx_get_data_addr(g_txts.img, &g_txts.bits_per_pixel, &g_txts.line_length, &g_txts.endian);
+	TXT1.addr = mlx_get_data_addr(TXT1.img, &TXT1.bits_per_pixel, &TXT1.line_length, &TXT1.endian);
+	TXT2.addr = mlx_get_data_addr(TXT2.img, &TXT2.bits_per_pixel, &TXT2.line_length, &TXT2.endian);
+	TXT3.addr = mlx_get_data_addr(TXT3.img, &TXT3.bits_per_pixel, &TXT3.line_length, &TXT3.endian);
+	TXT4.addr = mlx_get_data_addr(TXT4.img, &TXT4.bits_per_pixel, &TXT4.line_length, &TXT4.endian);
+	TXTS.addr = mlx_get_data_addr(TXTS.img, &TXTS.bits_per_pixel, &TXTS.line_length, &TXTS.endian);
 }
 
 void	cub3d(int nb_line, int max_len)
@@ -213,11 +213,12 @@ void	cub3d(int nb_line, int max_len)
 	draw_map(nb_line, max_len);
 	img.img = mlx_new_image(g_mlx.mlx, X_RES, Y_RES);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	malloc_sprite();
 	ft_cast_rays();
 	mlx_key_hook(g_mlx.win, ft_key, (void*)0);
-	mlx_hook(g_mlx.win, 2, 0, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
 	mlx_hook(g_mlx.win, 3, 0, do_nothing, (void*)0);
 
-	// mlx_expose_hook(g_mlx.win, do_nothing, (void*)0);
+	mlx_expose_hook(g_mlx.win, do_nothing, (void*)0);
 	mlx_loop(g_mlx.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:49:10 by abelarif          #+#    #+#             */
-/*   Updated: 2020/12/21 17:34:21 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:40:48 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,34 @@ void	build_wall(float dist, int c, int color, float x, float y)
 	while (++i < (float)Y_RES)
 	{
 		if (i <= (float)((float)(Y_RES - h) / 2))
-			my_mlx_pixel_put(&img, c, i, g_data.ce_color[2] + g_data.ce_color[1] * 256 + g_data.ce_color[0] * 65536);
+			my_mlx_pixel_put(&img, c, i, DATA.ce_color[2] + DATA.ce_color[1] * 256 + DATA.ce_color[0] * 65536);
 		else if ((((float)Y_RES - h) / 2) < i && i < (((float)Y_RES + h) / 2))
 		{
 			if (color == 0x8934eb)
 			{
-				dst = g_txt1.addr + (calc_y(h, i) * g_txt1.line_length + calc_x(y) * (g_txt1.bits_per_pixel / 8));
+				dst = TXT1.addr + (calc_y(h, i) * TXT1.line_length + calc_x(y) * (TXT1.bits_per_pixel / 8));
 				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
 
 			}
 			else if (color == 0x34eb46)
 			{
-				dst = g_txt3.addr + (calc_y(h, i) * g_txt1.line_length + calc_x(x) * (g_txt1.bits_per_pixel / 8));
+				dst = TXT3.addr + (calc_y(h, i) * TXT1.line_length + calc_x(x) * (TXT1.bits_per_pixel / 8));
 				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
 			}
 			else if (color == 0xeb4034)
 			{
-				dst = g_txt2.addr + (calc_y(h, i) * g_txt1.line_length + calc_x(y) * (g_txt1.bits_per_pixel / 8));
+				dst = TXT2.addr + (calc_y(h, i) * TXT1.line_length + calc_x(y) * (TXT1.bits_per_pixel / 8));
 				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
 
 			}
 			else if (color == 0x34d0eb)
 			{
-				dst = g_txt4.addr + (calc_y(h, i) * g_txt1.line_length + calc_x(x) * (g_txt1.bits_per_pixel / 8));
+				dst = TXT4.addr + (calc_y(h, i) * TXT1.line_length + calc_x(x) * (TXT1.bits_per_pixel / 8));
 				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
 			}
 		}
 		else
-			my_mlx_pixel_put(&img, c, i, g_data.fl_color[2] + g_data.fl_color[1] * 256 + g_data.fl_color[0] * 65536);
+			my_mlx_pixel_put(&img, c, i, DATA.fl_color[2] + DATA.fl_color[1] * 256 + DATA.fl_color[0] * 65536);
 	}
 }
 
@@ -93,57 +93,61 @@ void	dda(float x0, float y0,  float x1, float y1, int color, int col)
 	static int	wcolor;
 	while (i <= step)
 	{
-		if (!(((int)x + 1) % 64) && !(((int)y + 1) % 64) && (g_map[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && g_map[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
+		if (!(((int)x + 1) % 64) && !(((int)y + 1) % 64) && (MAP[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
 		{
-			dist = distance(g_player.x, g_player.y, x, y);
-			dist = dist * cos(vabs(g_player.current - g_player.rotation));
+			dist = distance(X_PLY, Y_PLY, x, y);
+			dist = dist * cos(vabs(g_player.current - A_PLY));
 			g_wall_distances[col] = dist;
 			build_wall(dist, col, wcolor, x, y);
 			break;
 		}
-		else if (!(((int)x) % 64) && !(((int)y + 1) % 64) && (g_map[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && g_map[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
+		else if (!(((int)x) % 64) && !(((int)y + 1) % 64) && (MAP[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
 		{
-			dist = distance(g_player.x, g_player.y, x, y);
-			dist = dist * cos(vabs(g_player.current - g_player.rotation));
+			dist = distance(X_PLY, Y_PLY, x, y);
+			dist = dist * cos(vabs(g_player.current - A_PLY));
 			g_wall_distances[col] = dist;
 			build_wall(dist, col, wcolor, x, y);
 			break;
 		}
-		else if (!(((int)x) % 64) && !(((int)y) % 64) && (g_map[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && g_map[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
+		else if (!(((int)x) % 64) && !(((int)y) % 64) && (MAP[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
 		{
-			dist = distance(g_player.x, g_player.y, x, y);
-			dist = dist * cos(vabs(g_player.current - g_player.rotation));
+			dist = distance(X_PLY, Y_PLY, x, y);
+			dist = dist * cos(vabs(g_player.current - A_PLY));
 			g_wall_distances[col] = dist;
 			build_wall(dist, col, wcolor, x, y);
 			break;
 		}
-		else if (!(((int)x + 1) % 64) && !(((int)y) % 64) && (g_map[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && g_map[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
+		else if (!(((int)x + 1) % 64) && !(((int)y) % 64) && (MAP[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
 		{
-			dist = distance(g_player.x, g_player.y, x, y);
-			dist = dist * cos(vabs(g_player.current - g_player.rotation));
+			dist = distance(X_PLY, Y_PLY, x, y);
+			dist = dist * cos(vabs(g_player.current - A_PLY));
 			g_wall_distances[col] = dist;
 			build_wall(dist, col, wcolor, x, y);
-			break;
+			break ;
 		}
-		else if (!y || !x || !((int)x % 64) || !((int)y % 64) || !(((int)x + 1) % 64) || !(((int)y + 1) % 64))
+		else if (!y || !x || !((int)x % 64) || !((int)y % 64)
+		|| !(((int)x + 1) % 64) || !(((int)y + 1) % 64))
 		{
-			if (g_map[(int)y / 64][(int)x / 64] == '1' || g_map[(int)y / 64][(int)x / 64] == ' ')
+			if (MAP[(int)y / 64][(int)x / 64] == '1'
+			|| MAP[(int)y / 64][(int)x / 64] == ' ')
 			{
 				if (!((int)x % 64) && ((int)y % 64) && (((int)y + 1) % 64))
 					wcolor = 0x8934eb;
 				else if (!((int)y % 64) && ((int)x % 64) && (((int)x + 1) % 64))
 					wcolor = 0x34eb46;
-				else if(!(((int)x + 1) % 64) && ((int)y % 64) && (((int)y + 1) % 64))
+				else if (!(((int)x + 1) % 64)
+				&& ((int)y % 64) && (((int)y + 1) % 64))
 					wcolor = 0xeb4034;
-				else if(!(((int)y + 1) % 64) && ((int)x % 64) && (((int)x + 1) % 64))
+				else if (!(((int)y + 1) % 64)
+				&& ((int)x % 64) && (((int)x + 1) % 64))
 					wcolor = 0x34d0eb;
-				dist = distance(g_player.x, g_player.y, x, y);
-				dist = dist * cos(vabs(g_player.current - g_player.rotation));
+				dist = distance(X_PLY, Y_PLY, x, y);
+				dist = dist * cos(vabs(g_player.current - A_PLY));
 				g_wall_distances[col] = dist;
 				build_wall(dist, col, wcolor, x, y);
-				break;
+				break ;
 			}
-			else if (g_map[(int)y / 64][(int)x / 64] == '2')
+			else if (MAP[(int)y / 64][(int)x / 64] == '2')
 			{
 				check_sprite(x, y);
 			}

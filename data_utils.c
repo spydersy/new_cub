@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:37:18 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/09 16:16:47 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:29:25 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 void	ft_init(void)
 {
-	g_data.nb[0] = 0;
-	g_data.nb[1] = 0;
-	g_data.nb[2] = 0;
-	g_data.nb[3] = 0;
-	g_data.nb[4] = 0;
-	g_data.nb[5] = 0;
-	g_data.nb[6] = 0;
-	g_data.nb[7] = 0;
+	DATA.nb[0] = 0;
+	DATA.nb[1] = 0;
+	DATA.nb[2] = 0;
+	DATA.nb[3] = 0;
+	DATA.nb[4] = 0;
+	DATA.nb[5] = 0;
+	DATA.nb[6] = 0;
+	DATA.nb[7] = 0;
 	X_RES = -1;
 	Y_RES = -1;
-	g_player.x = -1;
-	g_player.y = -1;
-	g_player.rotation = 0;
-	g_txt1.resolution[0] = 128;
-	g_txt1.resolution[1] = 124;
-	g_txts.resolution[0] = 64;
-	g_txts.resolution[1] = 64;
+	X_PLY = -1;
+	Y_PLY = -1;
+	A_PLY = 0;
+	TXT1.resolution[0] = 128;
+	TXT1.resolution[1] = 124;
+	TXTS.resolution[0] = 64;
+	TXTS.resolution[1] = 64;
 }
 
 int		all_digit(const char *str)

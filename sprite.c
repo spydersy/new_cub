@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 10:15:08 by abelarif          #+#    #+#             */
-/*   Updated: 2020/12/21 10:16:34 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:33:31 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 void	add_sprite(float x, float y)
 {
-	g_sp[g_nb_sprite].x_map = x / 64;
-	g_sp[g_nb_sprite].y_map = y / 64;
-	g_sp[g_nb_sprite].index = -1;
-	g_sp[g_nb_sprite].x = g_sp[g_nb_sprite].x_map * 64 + 32;
-	g_sp[g_nb_sprite].y = g_sp[g_nb_sprite].y_map * 64 + 32;
-
-	g_sp[g_nb_sprite].distance = distance(g_player.x, g_player.y,
-	g_sp[g_nb_sprite].x , g_sp[g_nb_sprite].y);
-	
-	g_sp[g_nb_sprite].distance = g_sp[g_nb_sprite].distance
-	* cos(vabs(g_player.current - g_player.rotation));
-	
+	SP[g_nb_sprite].x_map = x / 64;
+	SP[g_nb_sprite].y_map = y / 64;
+	SP[g_nb_sprite].index = -1;
+	SP[g_nb_sprite].x = SP[g_nb_sprite].x_map * 64 + 32;
+	SP[g_nb_sprite].y = SP[g_nb_sprite].y_map * 64 + 32;
+	SP[g_nb_sprite].distance = distance(X_PLY, Y_PLY,
+	SP[g_nb_sprite].x, SP[g_nb_sprite].y);
+	SP[g_nb_sprite].distance = SP[g_nb_sprite].distance
+	* cos(vabs(g_player.current - A_PLY));
 	g_nb_sprite++;
 }
 
@@ -38,19 +35,15 @@ int		check_sprite(float x, float y)
 	x_position = x / 64;
 	y_position = y / 64;
 	i = -1;
-
 	if (g_nb_sprite == 0)
 	{
-
 		add_sprite(x, y);
 		return (0);
 	}
 	while (++i < g_nb_sprite)
 	{
-		if (x_position ==  g_sp[i].x_map && y_position == g_sp[i].y_map)
-		{
+		if (x_position == SP[i].x_map && y_position == SP[i].y_map)
 			return (0);
-		}
 	}
 	add_sprite(x, y);
 	return (0);

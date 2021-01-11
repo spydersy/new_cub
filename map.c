@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelarif <abelarif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:04:54 by abelarif          #+#    #+#             */
-/*   Updated: 2020/11/29 04:15:20 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:12:26 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,32 @@ void		check_horizontal(int x, int y, int y_max)
 		ft_error("bad char at first line\n");
 	else if (y == y_max - 1)
 		ft_error("bad char at last line\n");
-	else if (g_map[y - 1][x] != '0' && g_map[y - 1][x] != '1'
-	&& g_map[y - 1][x] != '2' && g_map[y - 1][x] != 'N'
-	&& g_map[y - 1][x] != 'E' && g_map[y - 1][x] != 'S'
-	&& g_map[y - 1][x] != 'W')
+	else if (MAP[y - 1][x] != '0' && MAP[y - 1][x] != '1'
+	&& MAP[y - 1][x] != '2' && MAP[y - 1][x] != 'N'
+	&& MAP[y - 1][x] != 'E' && MAP[y - 1][x] != 'S'
+	&& MAP[y - 1][x] != 'W')
 		ft_error("+++++++++++++++++++++");
-	else if (g_map[y + 1][x] != '0' && g_map[y + 1][x] != '1'
-	&& g_map[y + 1][x] != '2' && g_map[y + 1][x] != 'N'
-	&& g_map[y + 1][x] != 'E' && g_map[y + 1][x] != 'S'
-	&& g_map[y + 1][x] != 'W')
+	else if (MAP[y + 1][x] != '0' && MAP[y + 1][x] != '1'
+	&& MAP[y + 1][x] != '2' && MAP[y + 1][x] != 'N'
+	&& MAP[y + 1][x] != 'E' && MAP[y + 1][x] != 'S'
+	&& MAP[y + 1][x] != 'W')
 		ft_error("---------------------0");
 }
 
 void		get_player(char orientation, int x, int y)
 {
-	if (g_player.rotation)
+	if (A_PLY)
 		ft_error("Multiple definition of Player\n");
-	g_player.x = x;
-	g_player.y = y;
+	X_PLY = x;
+	Y_PLY = y;
 	if (orientation == 'N')
-		g_player.rotation = -(PI / 2);
+		A_PLY = -(PI / 2);
 	else if (orientation == 'S')
-		g_player.rotation = PI / 2;
+		A_PLY = PI / 2;
 	else if (orientation == 'E')
-		g_player.rotation = 0;
+		A_PLY = 0;
 	else if (orientation == 'W')
-		g_player.rotation = PI;
+		A_PLY = PI;
 }
 
 void		bef_aft(char check_char, const char *line, int nb_line, int i)
@@ -120,16 +120,18 @@ void		horizontal_map(int y_max)
 
 	y = -1;
 	check_char = "02ENSW";
-	while (g_map[++y])
+	while (MAP[++y])
 	{
 		x = -1;
-		while (g_map[y][++x])
+		while (MAP[y][++x])
 		{
 			i = -1;
 			while (check_char[++i])
 			{
-				if (check_char[i] == g_map[y][x])
+				if (check_char[i] == MAP[y][x])
 					check_horizontal(x, y, y_max);
+				if (MAP[y][x] == '2')
+					g_nb_sprite++;
 			}
 		}
 	}
@@ -162,19 +164,19 @@ void		ft_move(int nb_line, int max_len)
 
 	actual = g_liste->first;
 	nb_line--;
-	while (nb_line >= 0 && g_map[nb_line])
+	while (nb_line >= 0 && MAP[nb_line])
 	{
-		my_strlcpy(g_map[nb_line], actual->line, ft_strlen(actual->line));
+		my_strlcpy(MAP[nb_line], actual->line, ft_strlen(actual->line));
 		if ((i = ft_strlen(actual->line)) < max_len)
 		{
 			if (i == 0 && nb_line > 0)
 				ft_error("egntnrtyn");
 			while (i < max_len)
 			{
-				g_map[nb_line][i] = ' ';
+				MAP[nb_line][i] = ' ';
 				i++;
 			}
-			g_map[nb_line][i] = '\0';
+			MAP[nb_line][i] = '\0';
 		}
 		actual = actual->next;
 		nb_line--;
@@ -186,12 +188,12 @@ void		map_2d(int nb_line, int max_len)
 	int		i;
 
 	i = 0;
-	if ((g_map = malloc(sizeof(char *) * (nb_line + 1))) == 0)
+	if ((MAP = malloc(sizeof(char *) * (nb_line + 1))) == 0)
 		ft_error("malloc map 1\n");
-	g_map[nb_line] = NULL;
+	MAP[nb_line] = NULL;
 	while (i < nb_line)
 	{
-		if ((g_map[i] = malloc(sizeof(char) * (max_len + 1))) == 0)
+		if ((MAP[i] = malloc(sizeof(char) * (max_len + 1))) == 0)
 			ft_error("malloc map 2\n");
 		i++;
 	}

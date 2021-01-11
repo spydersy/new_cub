@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:12:35 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/09 16:54:52 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:24:04 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		check_args_errors(int argc, char *argv[])
 	int		fd;
 
 	if (argc == 3)
-		g_data.save = 1;
+		DATA.save = 1;
 	if (argc < 2 || argc > 3)
 		ft_error("nb Args\n");
 	if (ft_strlen(argv[argc - 2]) < 4)
@@ -60,7 +60,8 @@ int		main(int argc, char *argv[])
 	int		fd;
 	int		i;
 
-	g_data.save = 0;
+	DATA.save = 0;
+	g_nb_sprite = 0;
 	fd = check_args_errors(argc, argv);
 	g_mlx.mlx = mlx_init();
 	ft_data(fd);
@@ -68,11 +69,11 @@ int		main(int argc, char *argv[])
 	Y_RES = ((Y_RES >= 1440) ? (1440) : (Y_RES));
 	i = -1;
 	while (++i < 3)
-		if (!(0 <= g_data.ce_color[i] && g_data.ce_color[i] <= 255))
+		if (!(0 <= DATA.ce_color[i] && DATA.ce_color[i] <= 255))
 			ft_error("RGB VALUE");
 	i = -1;
 	while (++i < 3)
-		if (!(0 <= g_data.ce_color[i] && g_data.ce_color[i] <= 255))
+		if (!(0 <= DATA.ce_color[i] && DATA.ce_color[i] <= 255))
 			ft_error("RGB VALUE");
 	init_text();
 	ft_map(fd);
