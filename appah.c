@@ -30,13 +30,13 @@ void	draw_sprite(int id)
 	l9alwa = (int*)TXTS.addr;
 	while (++i < size - 1 && (j = -1))
 	{
-		if (SP[id].xof + i <= 0 || SP[id].xof + i > X_RES - 1)
+		if (SP[id].xof + i <= 0 || SP[id].xof + i >= X_RES)
 			continue ;
 		if (g_wall_distances[(int)(SP[id].xof + i)] <= SP[id].distance)
 			continue ;
 		while (++j < size - 1)
 		{
-			if (SP[id].yof + j <= 0 || SP[id].yof + j > Y_RES - 1)
+			if (SP[id].yof + j <= 0 || SP[id].yof + j >= Y_RES)
 				continue ;
 			c = l9alwa[(int)((64) *
 					(64 * j / (int)size) + (64 * i / (int)size))];

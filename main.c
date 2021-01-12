@@ -68,6 +68,7 @@ int		main(int argc, char *argv[])
 	X_RES = ((X_RES >= 2560) ? (2560) : (X_RES));
 	Y_RES = ((Y_RES >= 1440) ? (1440) : (Y_RES));
 	i = -1;
+	printf("%d", Y_RES);
 	while (++i < 3)
 		if (!(0 <= DATA.ce_color[i] && DATA.ce_color[i] <= 255))
 			ft_error("RGB VALUE");

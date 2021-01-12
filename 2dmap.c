@@ -163,6 +163,10 @@ int		ft_cast_rays()
 
 int		ft_key(int key,  void *args)
 {
+	if (key == 82)
+	{
+		save_frame();
+	}
 	if (key == E_KEY)
 	{
 		exit(EXIT_SUCCESS);

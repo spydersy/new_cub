@@ -1,8 +1,9 @@
+
 R   1000 1000
 NO         xpm/N.xpm
 SO         xpm/E.xpm     
 WE      xpm/S.xpm
-S                ./xpm/brmil.xpm      
+S                ./xpm/SP.xpm      
 F  255,152,214
 C   204,100,0  
 EA  xpm/W.xpm

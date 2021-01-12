@@ -26,23 +26,23 @@
 
 #define PI 3.14159265359
 
-#define A_KEY	97
-#define D_KEY	100
-#define W_KEY	119
-#define S_KEY	115
-#define L_KEY	65361
-#define R_KEY	65363
-#define E_KEY	65307
-#include "../mlx.h"
+// #define A_KEY	97
+// #define D_KEY	100
+// #define W_KEY	119
+// #define S_KEY	115
+// #define L_KEY	65361
+// #define R_KEY	65363
+// #define E_KEY	65307
+// #include "../mlx.h"
 
-// #define A_KEY	0
-// #define D_KEY	2
-// #define W_KEY	13
-// #define S_KEY	1
-// #define L_KEY	123
-// #define R_KEY	124
-// #define E_KEY	53
-// #include <MLXh>
+#define A_KEY	0
+#define D_KEY	2
+#define W_KEY	13
+#define S_KEY	1
+#define L_KEY	123
+#define R_KEY	124
+#define E_KEY	53
+#include <mlx.h>
 
 #define X_RES	DATA.resolution[0]
 #define Y_RES	DATA.resolution[1]
@@ -170,4 +170,5 @@ void				cub3d(int nb_line, int max_len);
 int					sprite(float x, float y);
 int					check_sprite(float x, float y);
 void				to_sprite(void);
+void    			save_frame(void);
 #endif
