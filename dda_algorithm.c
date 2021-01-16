@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:49:10 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 17:40:48 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/16 06:05:53 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,143 +17,124 @@ float		vabs(float i)
 	return ((i >= 0) ? (i) : (i * (-1)));
 }
 
-int		calc_y(float h, float i)
+int			calc_y(float h, float i)
 {
 	return ((int)((124 * (i - (Y_RES - h) / 2)) / h));
 }
 
-int		calc_x(float x)
+int			calc_x(float x)
 {
 	return ((((int)x * 2) % 128));
 }
 
-void	build_wall(float dist, int c, int color, float x, float y)
+void		put_pixel_wall(int color, int c, float i, float *xy)
+{
+	char					*dst;
+	float					h;
+
+	h = (64 * X_RES) / g_wall_distances[c];
+	if (color == 1)
+		dst = TXT1.addr
+		+ (calc_y(h, i) * TXT1.len + calc_x(xy[1]) * (TXT1.bpp / 8));
+	else if (color == 2)
+		dst = TXT3.addr
+		+ (calc_y(h, i) * TXT1.len + calc_x(xy[0]) * (TXT1.bpp / 8));
+	else if (color == 3)
+		dst = TXT2.addr
+		+ (calc_y(h, i) * TXT1.len + calc_x(xy[1]) * (TXT1.bpp / 8));
+	else if (color == 4)
+		dst = TXT4.addr
+		+ (calc_y(h, i) * TXT1.len + calc_x(xy[0]) * (TXT1.bpp / 8));
+	my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
+}
+
+long		calc_rgb(int r, int g, int b)
+{
+	return (b + g * 256 + r * 65536);
+}
+
+void		build_wall(int c, int color, float x, float y)
 {
 	float					h;
 	float					i;
-	char					*dst;
+	float					xy[2];
 
-	h = (64 * X_RES) / dist;
+	h = (64 * X_RES) / g_wall_distances[c];
 	g_wall_pix[c] = (Y_RES - h) / 2;
 	i = -1;
+	xy[0] = x;
+	xy[1] = y;
 	while (++i < (float)Y_RES)
 	{
 		if (i <= (float)((float)(Y_RES - h) / 2))
-			my_mlx_pixel_put(&img, c, i, DATA.ce_color[2] + DATA.ce_color[1] * 256 + DATA.ce_color[0] * 65536);
+			my_mlx_pixel_put(&img, c, i,
+			calc_rgb(DATA.ce_color[0], DATA.ce_color[1], DATA.ce_color[2]));
 		else if ((((float)Y_RES - h) / 2) < i && i < (((float)Y_RES + h) / 2))
 		{
-			if (color == 0x8934eb)
-			{
-				dst = TXT1.addr + (calc_y(h, i) * TXT1.line_length + calc_x(y) * (TXT1.bits_per_pixel / 8));
-				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
-
-			}
-			else if (color == 0x34eb46)
-			{
-				dst = TXT3.addr + (calc_y(h, i) * TXT1.line_length + calc_x(x) * (TXT1.bits_per_pixel / 8));
-				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
-			}
-			else if (color == 0xeb4034)
-			{
-				dst = TXT2.addr + (calc_y(h, i) * TXT1.line_length + calc_x(y) * (TXT1.bits_per_pixel / 8));
-				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
-
-			}
-			else if (color == 0x34d0eb)
-			{
-				dst = TXT4.addr + (calc_y(h, i) * TXT1.line_length + calc_x(x) * (TXT1.bits_per_pixel / 8));
-				my_mlx_pixel_put(&img, c, i, *(unsigned int*)dst);
-			}
+			put_pixel_wall(color, c, i, xy);
 		}
 		else
-			my_mlx_pixel_put(&img, c, i, DATA.fl_color[2] + DATA.fl_color[1] * 256 + DATA.fl_color[0] * 65536);
+			my_mlx_pixel_put(&img, c, i,
+			calc_rgb(DATA.fl_color[0], DATA.fl_color[1], DATA.fl_color[2]));
 	}
 }
 
-void	dda(float x0, float y0,  float x1, float y1, int color, int col)
+void		dda(float x1, float y1, int col)
 {
-	float		dx = x1 - x0;
-	float		dy = y1 - y0;
-
-	int		step = ((vabs(dx) > vabs(dy)) ? (vabs(dx)) : (vabs(dy)));
-
-	float	xi = dx / (float)step;
-	float	yi = dy / (float)step;
-
-	float x = x0;
-	float y = y0;
-
-	int		i  = 0;
-
-	if (color)
-	{
-
-	}
-
+	float		dxy[2];
+	int			step;
+	float		xyi[2];
+	float		xy[2];
+	int			i;
 	static int	wcolor;
+
+	xy[0] = X_PLY;
+	dxy[0] = x1 - X_PLY;
+	dxy[1] = y1 - Y_PLY;
+	step = ((vabs(dxy[0]) > vabs(dxy[1])) ? (vabs(dxy[0])) : (vabs(dxy[1])));
+	xyi[0] = dxy[0] / (float)step;
+	xyi[1] = dxy[1] / (float)step;
+	xy[1] = Y_PLY;
+	i = 0;
 	while (i <= step)
 	{
-		if (!(((int)x + 1) % 64) && !(((int)y + 1) % 64) && (MAP[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
+		if (ft_iswall(xy[0], xy[1]))
 		{
-			dist = distance(X_PLY, Y_PLY, x, y);
+			dist = distance(X_PLY, Y_PLY, xy[0], xy[1]);
 			dist = dist * cos(vabs(g_player.current - A_PLY));
 			g_wall_distances[col] = dist;
-			build_wall(dist, col, wcolor, x, y);
-			break;
-		}
-		else if (!(((int)x) % 64) && !(((int)y + 1) % 64) && (MAP[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
-		{
-			dist = distance(X_PLY, Y_PLY, x, y);
-			dist = dist * cos(vabs(g_player.current - A_PLY));
-			g_wall_distances[col] = dist;
-			build_wall(dist, col, wcolor, x, y);
-			break;
-		}
-		else if (!(((int)x) % 64) && !(((int)y) % 64) && (MAP[((int)y - 2) / 64][((int)x + 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x - 2) / 64] == '1'))
-		{
-			dist = distance(X_PLY, Y_PLY, x, y);
-			dist = dist * cos(vabs(g_player.current - A_PLY));
-			g_wall_distances[col] = dist;
-			build_wall(dist, col, wcolor, x, y);
-			break;
-		}
-		else if (!(((int)x + 1) % 64) && !(((int)y) % 64) && (MAP[((int)y - 2) / 64][((int)x - 2) / 64] == '1' && MAP[((int)y + 2) / 64][((int)x + 2) / 64] == '1'))
-		{
-			dist = distance(X_PLY, Y_PLY, x, y);
-			dist = dist * cos(vabs(g_player.current - A_PLY));
-			g_wall_distances[col] = dist;
-			build_wall(dist, col, wcolor, x, y);
+			build_wall(col, wcolor, xy[0], xy[1]);
 			break ;
 		}
-		else if (!y || !x || !((int)x % 64) || !((int)y % 64)
-		|| !(((int)x + 1) % 64) || !(((int)y + 1) % 64))
+		else if (!xy[1] || !xy[0] || !((int)xy[0] % 64) || !((int)xy[1] % 64)
+		|| !(((int)xy[0] + 1) % 64) || !(((int)xy[1] + 1) % 64))
 		{
-			if (MAP[(int)y / 64][(int)x / 64] == '1'
-			|| MAP[(int)y / 64][(int)x / 64] == ' ')
+			if (MAP[(int)xy[1] / 64][(int)xy[0] / 64] == '1'
+			|| MAP[(int)xy[1] / 64][(int)xy[0] / 64] == ' ')
 			{
-				if (!((int)x % 64) && ((int)y % 64) && (((int)y + 1) % 64))
-					wcolor = 0x8934eb;
-				else if (!((int)y % 64) && ((int)x % 64) && (((int)x + 1) % 64))
-					wcolor = 0x34eb46;
-				else if (!(((int)x + 1) % 64)
-				&& ((int)y % 64) && (((int)y + 1) % 64))
-					wcolor = 0xeb4034;
-				else if (!(((int)y + 1) % 64)
-				&& ((int)x % 64) && (((int)x + 1) % 64))
-					wcolor = 0x34d0eb;
-				dist = distance(X_PLY, Y_PLY, x, y);
+				if (!((int)xy[0] % 64)
+				&& ((int)xy[1] % 64) && (((int)xy[1] + 1) % 64))
+					wcolor = 1;
+				else if (!((int)xy[1] % 64)
+				&& ((int)xy[0] % 64) && (((int)xy[0] + 1) % 64))
+					wcolor = 2;
+				else if (!(((int)xy[0] + 1) % 64)
+				&& ((int)xy[1] % 64) && (((int)xy[1] + 1) % 64))
+					wcolor = 3;
+				else if (!(((int)xy[1] + 1) % 64)
+				&& ((int)xy[0] % 64) && (((int)xy[0] + 1) % 64))
+					wcolor = 4;
+				dist = distance(X_PLY, Y_PLY, xy[0], xy[1]);
 				dist = dist * cos(vabs(g_player.current - A_PLY));
 				g_wall_distances[col] = dist;
-				build_wall(dist, col, wcolor, x, y);
+				build_wall(col, wcolor, xy[0], xy[1]);
 				break ;
 			}
-			else if (MAP[(int)y / 64][(int)x / 64] == '2')
-			{
-				check_sprite(x, y);
-			}
+			else if (MAP[(int)xy[1] / 64][(int)xy[0] / 64] == '2')
+				check_sprite(xy[0], xy[1]);
 		}
-		x += xi / 2;
-		y += yi / 2;
+		xy[0] += xyi[0] / 2;
+		xy[1] += xyi[1] / 2;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:40:48 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 17:24:04 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:46:17 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ int		get_path(int index, const char *str)
 	if (DATA.nb[index] != 0)
 		ft_error("Texture\n");
 	else if (index == 1 && DATA.nb[1] == 0)
-		DATA.no_texture = ft_strdup(str);
+		DATA.no_txt = ft_strdup(str);
 	else if (index == 2 && DATA.nb[2] == 0)
-		DATA.so_texture = ft_strdup(str);
+		DATA.so_txt = ft_strdup(str);
 	else if (index == 3 && DATA.nb[3] == 0)
-		DATA.we_texture = ft_strdup(str);
+		DATA.we_txt = ft_strdup(str);
 	else if (index == 4 && DATA.nb[4] == 0)
-		DATA.ea_texture = ft_strdup(str);
+		DATA.ea_txt = ft_strdup(str);
 	else if (index == 5 && DATA.nb[5] == 0)
-		DATA.sp_texture = ft_strdup(str);
+		DATA.sp_txt = ft_strdup(str);
 	else if (index == 6 && DATA.nb[6] == 0)
 		return (get_rgb(index, str));
 	else if (index == 7 && DATA.nb[7] == 0)

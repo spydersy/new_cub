@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:37:18 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 17:29:25 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:46:17 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_init(void)
 	X_PLY = -1;
 	Y_PLY = -1;
 	A_PLY = 0;
-	TXT1.resolution[0] = 128;
-	TXT1.resolution[1] = 124;
-	TXTS.resolution[0] = 64;
-	TXTS.resolution[1] = 64;
+	TXT1.resl[0] = 128;
+	TXT1.resl[1] = 124;
+	TXTS.resl[0] = 64;
+	TXTS.resl[1] = 64;
 }
 
 int		all_digit(const char *str)
@@ -94,7 +94,7 @@ int		manip_line(const char *line)
 	}
 	else if (nb == 2)
 	{
-		nb_data += get_texture(content);
+		nb_data += get_txt(content);
 		free_array(content);
 	}
 	else

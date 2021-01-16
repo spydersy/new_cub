@@ -6,13 +6,13 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 12:48:01 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 16:59:39 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/16 09:43:12 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		get_texture(char **content)
+int			get_txt(char **content)
 {
 	int		index;
 
@@ -36,7 +36,7 @@ int		get_texture(char **content)
 	return (get_path(index, content[1]));
 }
 
-void	check_comma(char *line)
+void		check_comma(char *line)
 {
 	int		i;
 	int		nb;
@@ -53,7 +53,23 @@ void	check_comma(char *line)
 	}
 }
 
-void	ft_data(int fd)
+void		get_player_angle(char orientation, int x, int y)
+{
+	if (A_PLY)
+		ft_error("Multiple definition of Player\n");
+	X_PLY = x;
+	Y_PLY = y;
+	if (orientation == 'N')
+		A_PLY = -(PI / 2);
+	else if (orientation == 'S')
+		A_PLY = PI / 2;
+	else if (orientation == 'E')
+		A_PLY = 0;
+	else if (orientation == 'W')
+		A_PLY = PI;
+}
+
+void		ft_data(int fd)
 {
 	static int		nb = 0;
 	char			*line;

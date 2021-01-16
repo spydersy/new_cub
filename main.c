@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:12:35 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/11 17:24:04 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:56:58 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		main(int argc, char *argv[])
 	X_RES = ((X_RES >= 2560) ? (2560) : (X_RES));
 	Y_RES = ((Y_RES >= 1440) ? (1440) : (Y_RES));
 	i = -1;
-	printf("%d", Y_RES);
 	while (++i < 3)
 		if (!(0 <= DATA.ce_color[i] && DATA.ce_color[i] <= 255))
 			ft_error("RGB VALUE");
