@@ -6,11 +6,16 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 12:48:01 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 09:43:12 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/16 14:55:43 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+float		deg(float x)
+{
+	return ((180 / PI) * x);
+}
 
 int			get_txt(char **content)
 {

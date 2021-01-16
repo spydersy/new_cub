@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:14:32 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 10:12:34 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/16 15:02:56 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@
 #define Y_RES	DATA.resolution[1]
 #define X_PLY	g_player.x
 #define Y_PLY	g_player.y
-#define A_PLY	g_player.angle
+#define A_PLY	P.angle
 #define SP		g_sprite
 #define DATA	g_data
+#define P		g_player
 
 #define TXTS		g_txts
 #define TXT1		g_txt1
@@ -76,7 +77,7 @@ typedef	struct	s_player
 {
 	float			x;
 	float			y;
-	float			current;
+	float			crt;
 	float			angle;
 	int				col;
 }				t_player;
@@ -153,6 +154,10 @@ int     				ft_iswall(int x, int y);
 int						get_resolution(char **content);
 int						ft_key(int key, void *args);
 int						ft_cast_rays(void);
+int						calc_x(float x);
+int						calc_y(float h, float i);
+int						ft_islimits(float *xy);
+long					calc_rgb(int r, int g, int b);
 void                	ft_error (char *str);
 void					dda(float x1, float y1, int col);
 void					init_text(void);
@@ -170,7 +175,8 @@ void					horizontal_map(int y_max);
 void					cub3d(int nb_line, int max_len);
 void					to_sprite(void);
 void    				save_frame(void);
-float					distance(float x0, float y0, float x1, float y1);
+float					deg(float x);
+float					dst(float x0, float y0, float x1, float y1);
 float					vabs(float i);
 float					normalize(float angle);
 

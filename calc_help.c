@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 09:59:23 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 10:01:08 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/16 11:16:49 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ float		normalize(float angle)
 	return (angle);
 }
 
-float		distance(float x0, float y0, float x1, float y1)
+float		dst(float x0, float y0, float x1, float y1)
 {
 	float		distance;
 
@@ -82,7 +82,7 @@ int			ft_cast_rays(void)
 
 	step = -1;
 	teta = PI / (3 * X_RES);
-	g_player.current = A_PLY;
+	P.crt = A_PLY;
 	A_PLY = A_PLY - PI / 6;
 	while (++step < X_RES)
 	{
@@ -91,7 +91,7 @@ int			ft_cast_rays(void)
 		(int)(Y_PLY + sinf(A_PLY) * 100000000), step);
 		A_PLY += teta;
 	}
-	A_PLY = g_player.current;
+	A_PLY = P.crt;
 	to_sprite();
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, img.img, 0, 0);
 	return (0);
