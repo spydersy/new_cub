@@ -17,6 +17,7 @@ void		put_pixel_wall(int color, int c, float i, float *xy)
 	char					*dst;
 	float					h;
 
+	dst = NULL;
 	h = (64 * X_RES) / g_wall_distances[c];
 	if (color == 1)
 		dst = TXT1.addr
@@ -66,7 +67,7 @@ int			get_correct_color(float *xy, int col)
 {
 	static long wcolor;
 
-	if (MAP[(int)xy[1] / 64][(int)xy[0] / 64] == '1')
+	if (ft_iswall_space(xy))
 	{
 		if (!((int)xy[0] % 64)
 		&& ((int)xy[1] % 64) && (((int)xy[1] + 1) % 64))

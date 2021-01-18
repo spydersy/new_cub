@@ -12,6 +12,15 @@
 
 #include "cub3d.h"
 
+int			ft_iswall_space(float *xy)
+{
+	if (MAP[(int)xy[1] / 64][(int)xy[0] / 64] == '1')
+		return (1);
+	if (MAP[(int)xy[1] / 64][(int)xy[0] / 64] == ' ')
+		return (1);
+	return (0);
+}
+
 int		ft_iswall(int x, int y)
 {
 	if (!((x + 1) % 64) && !((y + 1) % 64)

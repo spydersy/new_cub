@@ -84,6 +84,7 @@ int			ft_cast_rays(void)
 	teta = PI / (3 * X_RES);
 	P.crt = A_PLY;
 	A_PLY = A_PLY - PI / 6;
+	// printf("00 : %lu\n", random());
 	while (++step < X_RES)
 	{
 		dda(
@@ -93,6 +94,7 @@ int			ft_cast_rays(void)
 	}
 	A_PLY = P.crt;
 	to_sprite();
+	printf("03 : %lu\n", random());
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, img.img, 0, 0);
 	return (0);
 }

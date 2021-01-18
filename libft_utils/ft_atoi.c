@@ -30,8 +30,8 @@ int		ft_atoi(const char *str)
 		else if (res < 0 && sign > 0)
 			return (-1);
 		res = res * 10 + str[nav++] - '0';
-		if (res >= 5120)
-			return (5120);
+		if (res >= 2560)
+			return (2560);
 	}
 	return (res * sign);
 }

@@ -75,6 +75,28 @@ void		init_text(void)
 	TXTS.addr = mlx_get_data_addr(TXTS.img, &TXTS.bpp, &TXTS.len, &TXTS.endian);
 }
 
+int			ft_exit(int key, void *args)
+{
+	if (key && args)
+	{
+	}
+	exit(EXIT_SUCCESS);
+}
+
+int			test(void *args)
+{
+	if (args)
+	{
+
+	}
+	ft_key(-1, (void*)0);
+	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
+	// mlx_hook(g_mlx.win, 3, 1L << 0, ft_key, (void*)0);
+	// mlx_key_hook(g_mlx.win, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 17, 0L, ft_exit, (void*)0);
+	return (0);
+}
+
 void		cub3d(int nb_line, int max_len)
 {
 	if (!(g_wall_distances = malloc(sizeof(float) * X_RES)))
@@ -88,9 +110,6 @@ void		cub3d(int nb_line, int max_len)
 								&img.len, &img.endian);
 	malloc_sprite();
 	ft_cast_rays();
-	mlx_key_hook(g_mlx.win, ft_key, (void*)0);
-	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
-	mlx_hook(g_mlx.win, 3, 0, ft_key, (void*)0);
-	mlx_expose_hook(g_mlx.win, ft_key, (void*)0);
+	mlx_loop_hook(g_mlx.mlx, test, (void*)0);
 	mlx_loop(g_mlx.mlx);
 }

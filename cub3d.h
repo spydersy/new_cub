@@ -26,23 +26,23 @@
 
 #define PI 3.14159265359
 
-#define A_KEY	97
-#define D_KEY	100
-#define W_KEY	119
-#define S_KEY	115
-#define L_KEY	65361
-#define R_KEY	65363
-#define E_KEY	65307
-#include "../mlx.h"
+// #define A_KEY	97
+// #define D_KEY	100
+// #define W_KEY	119
+// #define S_KEY	115
+// #define L_KEY	65361
+// #define R_KEY	65363
+// #define E_KEY	65307
+// #include "../mlx.h"
 
-// #define A_KEY	0
-// #define D_KEY	2
-// #define W_KEY	13
-// #define S_KEY	1
-// #define L_KEY	123
-// #define R_KEY	124
-// #define E_KEY	53
-// #include <mlx.h>
+#define A_KEY	0
+#define D_KEY	2
+#define W_KEY	13
+#define S_KEY	1
+#define L_KEY	123
+#define R_KEY	124
+#define E_KEY	53
+#include <mlx.h>
 
 #define X_RES	DATA.resolution[0]
 #define Y_RES	DATA.resolution[1]
@@ -155,6 +155,7 @@ int						get_resolution(char **content);
 int						ft_key(int key, void *args);
 int						ft_cast_rays(void);
 int						calc_x(float x);
+int						ft_iswall_space(float *xy);
 int						calc_y(float h, float i);
 int						ft_islimits(float *xy);
 long					calc_rgb(int r, int g, int b);
