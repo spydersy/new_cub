@@ -91,8 +91,8 @@ int			test(void *args)
 	}
 	ft_key(-1, (void*)0);
 	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
-	// mlx_hook(g_mlx.win, 3, 1L << 0, ft_key, (void*)0);
-	// mlx_key_hook(g_mlx.win, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 3, 1L << 0, ft_key, (void*)0);
+	mlx_key_hook(g_mlx.win, ft_key, (void*)0);
 	mlx_hook(g_mlx.win, 17, 0L, ft_exit, (void*)0);
 	return (0);
 }

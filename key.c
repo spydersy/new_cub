@@ -16,7 +16,7 @@ void		ft_move_v(int direction)
 {
 	get_new_position(
 	(X_PLY + (direction * -1) * cosf(A_PLY) * 100000000),
-	(Y_PLY + (direction * -1) * sinf(A_PLY) * 100000000), 40);
+	(Y_PLY + (direction * -1) * sinf(A_PLY) * 100000000), 60);
 }
 
 void		ft_move_h(int direction)
