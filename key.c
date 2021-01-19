@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 10:03:00 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 10:06:59 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/19 08:49:48 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		ft_new_frame(int key)
 
 int			ft_key(int key, void *args)
 {
+	printf("key : %d\n", key);
 	if (key == E_KEY)
 	{
 		exit(EXIT_SUCCESS);

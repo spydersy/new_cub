@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 09:59:23 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 11:16:49 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/19 09:52:10 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int			ft_cast_rays(void)
 	}
 	A_PLY = P.crt;
 	to_sprite();
-	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, img.img, 0, 0);
+	ft_save();
+// 	if (!g_data.save)
+// 	// mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, img.img, 0, 0);
 	return (0);
 }

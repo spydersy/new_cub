@@ -6,7 +6,7 @@
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:14:32 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 15:02:56 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/19 09:22:50 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@
 
 #define PI 3.14159265359
 
-// #define A_KEY	97
-// #define D_KEY	100
-// #define W_KEY	119
-// #define S_KEY	115
-// #define L_KEY	65361
-// #define R_KEY	65363
-// #define E_KEY	65307
-// #include "../mlx.h"
+#define A_KEY	97
+#define D_KEY	100
+#define W_KEY	119
+#define S_KEY	115
+#define L_KEY	65361
+#define R_KEY	65363
+#define E_KEY	65307
+#include "../mlx.h"
 
-#define A_KEY	0
-#define D_KEY	2
-#define W_KEY	13
-#define S_KEY	1
-#define L_KEY	123
-#define R_KEY	124
-#define E_KEY	53
-#include <mlx.h>
+// #define A_KEY	0
+// #define D_KEY	2
+// #define W_KEY	13
+// #define S_KEY	1
+// #define L_KEY	123
+// #define R_KEY	124
+// #define E_KEY	53
+// #include <mlx.h>
 
 #define X_RES	DATA.resolution[0]
 #define Y_RES	DATA.resolution[1]
@@ -120,6 +120,19 @@ typedef struct	s_sprite
 	int		index;
 }				t_sprite;
 
+typedef struct		s_bmp
+{
+	int					width_in_bytes;
+	char				header[54];
+	unsigned int		bitcount;
+	unsigned int		imagesize;
+	unsigned int		bi_size;
+	unsigned int		bf_off_bits;
+	unsigned int		filesize;
+	unsigned int		bi_planes;
+	unsigned char		*buf;
+}					t_bmp;
+
 int						nb_line;
 int						max_len;
 int						g_nb_sprite;
@@ -134,6 +147,7 @@ t_img					g_txt2;
 t_img					g_txt3;
 t_img					g_txt4;
 t_img					g_txts;
+t_bmp					g_bmp;
 t_data					g_data;
 t_liste					*g_liste;
 t_player				g_player;
@@ -171,6 +185,8 @@ void					get_new_position(float x1, float y1, int nb_steps);
 void					get_fl(int r, int g, int b);
 void					ft_init(void);
 void					check_line(const char *line, int nb_line);
+void					ft_save(void);
+void					get_position(int y_max, int x_max);
 void					get_player_angle(char orientation, int x, int y);
 void					horizontal_map(int y_max);
 void					cub3d(int nb_line, int max_len);

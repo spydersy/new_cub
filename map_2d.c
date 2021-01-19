@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2dmap.c                                            :+:      :+:    :+:   */
+/*   map_2d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelarif <abelarif@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:52:39 by abelarif          #+#    #+#             */
-/*   Updated: 2021/01/16 10:05:30 by abelarif         ###   ########.fr       */
+/*   Updated: 2021/01/19 09:48:14 by abelarif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,8 @@ int			test(void *args)
 	{
 
 	}
-	ft_key(-1, (void*)0);
-	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
-	mlx_hook(g_mlx.win, 3, 1L << 0, ft_key, (void*)0);
-	mlx_key_hook(g_mlx.win, ft_key, (void*)0);
-	mlx_hook(g_mlx.win, 17, 0L, ft_exit, (void*)0);
+	// ft_key(-1, (void*)0);
+
 	return (0);
 }
 
@@ -103,6 +100,8 @@ void		cub3d(int nb_line, int max_len)
 		ft_error("malloc");
 	if (!(g_wall_pix = malloc(sizeof(float) * X_RES)))
 		ft_error("malloc");
+	if (g_data.save)
+		ft_save();
 	g_mlx.win = mlx_new_window(g_mlx.mlx, X_RES, Y_RES, "CUB3D");
 	get_position(nb_line, max_len);
 	img.img = mlx_new_image(g_mlx.mlx, X_RES, Y_RES);
@@ -110,6 +109,11 @@ void		cub3d(int nb_line, int max_len)
 								&img.len, &img.endian);
 	malloc_sprite();
 	ft_cast_rays();
-	mlx_loop_hook(g_mlx.mlx, test, (void*)0);
+	ft_save();
+	mlx_key_hook(g_mlx.win, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 2, 1L << 0, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 3, 1L << 0, ft_key, (void*)0);
+	mlx_hook(g_mlx.win, 17, 0L, ft_exit, (void*)0);
+	// mlx_loop_hook(g_mlx.mlx, test, (void*)0);
 	mlx_loop(g_mlx.mlx);
 }
